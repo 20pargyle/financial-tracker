@@ -1,0 +1,15 @@
+features:
+    Transactions, each with
+        transaction amount, income/expense, name (company or person), timestamp (include time or not?), categories (v2), misc notes
+
+    Expense graphs
+        monthly, yearly, or all time
+
+    interesting stats
+        with notifications
+            eg Apple screen time: your expenses were down 20% this month... awesome job!
+
+    I'd like to track how often I need certain things on average OR how long they last
+        ie. how often I need shower gel... or smoothie materials!
+        With a robust system, I can then more easily estimate future expenses
+            How do we know how often things are purchased? receipt scanning?
