@@ -7,12 +7,12 @@ public class Transaction {
     private TransactionCategory category;
     private String note;
 
-    public Transaction(double amount, String name, LocalDate date) {
+    public Transaction(double amount, String name, LocalDateTime date) {
         this.amount = amount;
         this.name = name;
         this.date = date;
     }
-    public Transaction(double amount, String name, LocalDate date, TransactionCategory category) {
+    public Transaction(double amount, String name, LocalDateTime date, TransactionCategory category) {
         this.amount = amount;
         this.name = name;
         this.date = date;
@@ -27,7 +27,7 @@ public class Transaction {
     public String getNote(){ return this.note; }
     public void setNote(String newNote){ this.note = newNote; }
     public String getDate(){ return date.toString(); }
-    public void setDate(LocalDate newDate){ this.date = newDate; }
+    public void setDate(LocalDateTime newDate){ this.date = newDate; }
 
     public String toString(){
         return "Transaction from " + this.name + " for $" + this.amount + " happened " + this.date.toString() + ", in category \"" + this.category.name + "\".";  

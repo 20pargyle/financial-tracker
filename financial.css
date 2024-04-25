@@ -1,0 +1,6 @@
+#new-transaction-form {
+    display: none;
+}
+body[data-mode="add"] #file-form {
+    display: none;
+}

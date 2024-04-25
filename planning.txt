@@ -13,3 +13,19 @@ features:
         ie. how often I need shower gel... or smoothie materials!
         With a robust system, I can then more easily estimate future expenses
             How do we know how often things are purchased? receipt scanning?
+
+
+general outline:
+    An option to import an existing list OR make a new one 
+        if imported, then -> editing page
+        if from new, then a page to set that up -> edit page        
+
+    Tools:
+        Add transactions, delete transactions, edit transactions (v2)
+        merge files, save as new.
+
+    At the end of the session, a "save as" button will return the file in its new state.
+
+
+history file format:
+    some type of data structure, with the transactions sorted by the date/time field
