@@ -1,26 +1,32 @@
 <html>
   <head>
     <link rel="stylesheet" href="financial.css">
+    <script src="financial.js" defer></script>
   </head>
   <body data-mode="start">
-    <form name="Records File" id="file-form">
+    <!-- <form name="Records File" id="file-form">
       <label for="has-file"></label><input type="radio" name="file-check" id="has-file">
       <label for="no-file"></label><input type="radio" name="file-check" id="no-file">
       <label for="file-input">Upload records file: </label><input type="file" name="" id="file-input">
-    </form>
+    </form> -->
 
-    <!-- Submitted to appendTransaction, a python file -->
-    <form name="New Transaction" id="new-transaction-form" action="/appendTransaction"> 
-      <input type="text" name="" id="new-name">
-      <input type="number" name="" id="new-amount">
-      <input type="range" name="" id="">
-      <input type="date" name="" id="new-date">
-      <input type="time" name="" id="new-time">
-      <select>
-        <!-- <option>-s added here programatically -->
+    <!-- with action="/appendTransaction", can be submitted to appendTransaction, a python file, for processing -->
+      <form name="New Transaction" id="new-transaction-form" > 
+      <label for="new-name">Payee/Item Name: </label><input type="text" name="name" id="new-name">
+      <label for="new-amount">Amount: </label><input type="number" value="0.00" placeholder="0.00" step="0.01" name="amount" id="new-amount">
+      <label for="new-date">Date: </label><input type="date" name="date" id="new-date">
+      <label for="new-time">Time: </label><input type="time" name="time" id="new-time">
+      <!-- <select>
+        <option>-s added here programatically
         <option id="new-category">New Category</option>
-      </select>
+      </select> -->
+      <input type="submit" value="Save Transaction" id="new-transaction-submit">
     </form>
+    <div id="error-div" aria-live="polite"></div>
+    <h3>Recorded Transactions</h3>
+    <ul id="transaction-list">
+
+    </ul>
   </body>
 
 </html>
