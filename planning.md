@@ -4,6 +4,12 @@ ok step by step, building the pieces so scope creep is less bad:
     3. file handling
 
 
+BUGS:
+    - can delete item as it's being edited
+
+
+
+
 features:
     Transactions, each with
         transaction amount, income/expense, name (company or person), timestamp (include time or not?), categories (v2), misc notes

@@ -1,29 +1,43 @@
-const trForm = document.getElementById("new-transaction-form");
-const trSubmit = document.getElementById("new-transaction-submit");
+const newForm = document.getElementById("new-form");
+const newTrSubmit = document.getElementById("new-submit");
+const editForm = document.getElementById("edit-form");
+const editSave = document.getElementById("edit-save");
+const editCancel = document.getElementById("edit-cancel");
 const trListDisplay = document.getElementById("transaction-list");
+const balanceDiv = document.getElementById("balance-div")
 const errorDiv = document.getElementById("error-div");
 const trArray = [];
 
-trSubmit.addEventListener("click", (e) => {
+newTrSubmit.addEventListener("click", (e) => {
     e.preventDefault();
-    if (trForm.name.value == "" || trForm.amount.value <= 0) {
+    submitNewForm();
+});
+
+newTrSubmit.addEventListener("keydown", (e) => {
+    e.preventDefault();
+    if (e.key = "Enter") { submitnewForm(); }
+})
+
+function submitNewForm(){
+    if (newForm.name.value == "" || newForm.amount.value <= 0) {
         errorDiv.textContent = "Error; invalid input";
         setTimeout(() => { errorDiv.textContent = "" }, 1200);
     }
     else {
         newTr = {
-            "name" : trForm.name.value,
-            "amount" : trForm.amount.value,
-            "date" : trForm.date.value,
-            "time" : trForm.time.value
+            "name" : newForm.name.value,
+            "amount" : newForm.amount.value,
+            "date" : newForm.date.value,
+            "time" : newForm.time.value
         };
         trArray.push(newTr);
-        displayAllTr(trArray, trListDisplay);
+        updateTrList(trArray, trListDisplay);
     }
-});
+}
 
-function displayAllTr(trArray){
+function updateTrList(trArray){
     trListDisplay.innerHTML = "";
+    var remainingBalance = 0;
     trArray.forEach(tr => {
         const parentItem = document.createElement("li");
         const trName = document.createElement("h5");
@@ -38,7 +52,12 @@ function displayAllTr(trArray){
         parentItem.appendChild(trAmount);
         addActions(parentItem, tr);
         trListDisplay.appendChild(parentItem);
+
+        remainingBalance = remainingBalance - tr.amount;
+
     });
+    const truncatedBalance = Math.trunc(remainingBalance * 100) / 100;
+    balanceDiv.textContent = `$${truncatedBalance}`;
 }
 
 function addActions(parentItem, trObj) {
@@ -46,9 +65,9 @@ function addActions(parentItem, trObj) {
     
     editButton.classList.add("material-icons");
     editButton.textContent = "edit";
-    editButton.addEventListener("click", () => {
-        const trIndex = trArray.indexOf(trObj);
-        // display edit menu, with current transaction values
+    editButton.addEventListener("click", (e) => { 
+        e.preventDefault
+        beginEdit(trObj);
     });
     
     const deleteButton = document.createElement("button");
@@ -56,32 +75,82 @@ function addActions(parentItem, trObj) {
     deleteButton.classList.add("material-icons");
     deleteButton.textContent = "delete";
 
-    deleteButton.addEventListener("click", () => {
-        const trIndex = trArray.indexOf(trObj);
-        if (trIndex > -1) {
-            trArray.splice(trIndex, 1);
-            displayAllTr(trArray);
-        }
-    });
+    deleteButton.addEventListener("click", () => { deleteTrItem(trObj); });
+    deleteButton.addEventListener("keydown", (e) => { if (e.key="enter") { deleteTrItem(trObj); }});
 
     parentItem.appendChild(editButton);
     parentItem.appendChild(deleteButton);
 }
 
-// after a user edits a transaction and clicks "save", this saves the new values to the object. 
-function saveTrEdit(trObj){
+function deleteTrItem(trObj) {
     const trIndex = trArray.indexOf(trObj);
-    trArray[trIndex] = {
-        "name" : trEditForm.name.value,
-            "amount" : trEditForm.amount.value,
-            "date" : trEditForm.date.value,
-            "time" : trEditForm.time.value
+    // remove transaction item and update the displayed list
+    if (trIndex > -1) {
+        trArray.splice(trIndex, 1);
+        updateTrList(trArray);
     }
-    displayAllTr(trArray);
+    // TODO: removing event listeners? somehow I need to remove the listener object... but it seems that I can't use 'e' then. see MDN
+}
+
+function beginEdit(trObj){
+    const trIndex = trArray.indexOf(trObj);
+    newForm.style.display = "none";
+    editForm.style.display = "inherit";
+
+    // populate edit menu with existing object elements
+    editForm.name.value = trObj["name"];
+    editForm.amount.value = trObj["amount"];
+    editForm.date.value = trObj["date"];
+    editForm.time.value = trObj["time"];
+
+    editForm.name.placeholder = trObj["name"];
+    editForm.amount.placeholder = trObj["amount"];
+    editForm.date.placeholder = trObj["date"];
+    editForm.time.placeholder = trObj["time"];
+
+    // "cancel" button closes the menu, not saving any changes made
+
+    editCancel.addEventListener("click", (e) => {
+        e.preventDefault();
+        cancelEdit();
+    });
+    editCancel.addEventListener("keydown", (e) => {
+        e.preventDefault();
+        if (e.key="enter") { cancelEdit(); }
+    });
+    editSave.addEventListener("click", (e) => { 
+        e.preventDefault();
+        saveEdit(trIndex); 
+    });
+    editSave.addEventListener("keydown", (e) => { 
+        e.preventDefault();
+        if (e.key="enter") { saveEdit(trIndex); }
+    });
+}
+
+function cancelEdit(){
+    editForm.style.display = "none";
+    newForm.style.display = "flex";
+    // remove edit save button event listener, so it can't be used while
+
+    editCancel.removeEventListener("click", () => { cancelEdit(); });
+}
+
+// after a user edits a transaction and clicks "save", this saves the new values to the object and array. 
+function saveEdit(trIndex){
+    trArray[trIndex] = {
+        "name" : editForm.name.value,
+        "amount" : editForm.amount.value,
+        "date" : editForm.date.value,
+        "time" : editForm.time.value
+    }
+    updateTrList(trArray);
+    editForm.style.display = "none";
+    newForm.style.display = "flex";
 }
 
 function exportTrList(){
-    
+
 }
 
 /* const hasFileRadio = document.getElementById("has-file");

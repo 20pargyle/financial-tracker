@@ -13,10 +13,11 @@ form {
 
 ul {
     list-style-type: none;
-    padding: 0;
+    padding: 4px 36px;
     display: flex;
     flex-basis: 75px;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
+    gap: 8px;
 }
 li {
     outline: black solid 2px;
@@ -27,13 +28,13 @@ h5 {
     font-size: 1.5em;
     margin: 8px 0px;
 }
+p {
+    margin: 4px 0px;
+}
 .material-icons {
     font-size: 0.5em;
 }
 
-/* #new-transaction-form {
+#edit-form {
     display: none;
 }
-body[data-mode="add"] #file-form {
-    display: none;
-} */
