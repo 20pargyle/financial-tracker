@@ -12,7 +12,7 @@ BUGS:
 
 features:
     Transactions, each with
-        transaction amount, income/expense, name (company or person), timestamp (include time or not?), categories (v2), misc notes
+        transaction amount, income/expense, name (company or person), timestamp (include time or not?), categories (v2), misc notes. ID - random x-digit integer. If that is the same between two transactions, then check the day
 
     Expense graphs - definitely importing something
         monthly, yearly, or all time

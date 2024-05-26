@@ -89,7 +89,6 @@ function deleteTrItem(trObj) {
         trArray.splice(trIndex, 1);
         updateTrList(trArray);
     }
-    // TODO: removing event listeners? somehow I need to remove the listener object... but it seems that I can't use 'e' then. see MDN
 }
 
 function beginEdit(trObj){
@@ -110,22 +109,24 @@ function beginEdit(trObj){
 
     // "cancel" button closes the menu, not saving any changes made
 
+    // TODO: These event listeners need to be removed after either 'cancel' or 'save' is used
+    // once clicked, all of the listeners go off and the values are saved to everything that has ever been edited.
     editCancel.addEventListener("click", (e) => {
         e.preventDefault();
         cancelEdit();
-    });
+    }, { once: true });
     editCancel.addEventListener("keydown", (e) => {
         e.preventDefault();
         if (e.key="enter") { cancelEdit(); }
-    });
+    }, { once: true });
     editSave.addEventListener("click", (e) => { 
         e.preventDefault();
         saveEdit(trIndex); 
-    });
+    }, { once: true });
     editSave.addEventListener("keydown", (e) => { 
         e.preventDefault();
         if (e.key="enter") { saveEdit(trIndex); }
-    });
+    }, { once: true });
 }
 
 function cancelEdit(){
