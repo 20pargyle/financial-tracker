@@ -6,6 +6,8 @@ const editCancel = document.getElementById("edit-cancel");
 const trListDisplay = document.getElementById("transaction-list");
 const balanceDiv = document.getElementById("balance-div")
 const errorDiv = document.getElementById("error-div");
+const exportButton = document.getElementById("export-btn");
+const importButton = document.getElementById("import-btn");
 const trArray = [];
 
 newTrSubmit.addEventListener("click", (e) => {
@@ -15,20 +17,40 @@ newTrSubmit.addEventListener("click", (e) => {
 
 newTrSubmit.addEventListener("keydown", (e) => {
     e.preventDefault();
-    if (e.key = "Enter") { submitnewForm(); }
+    if (e.key === "Enter"){ submitNewForm(); }
+});
+
+exportButton.addEventListener("click", () => {
+    // array formatted to one text block or string
+    // put into some download function (see below)
+    // what filename? what extention?
 })
 
+/* some example code from 2410 recipe card assignment
+function download(text, filename){
+    var blob = new Blob([text], {type: "application/octet-stream"}); // default for unknown or unstandard types
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+*/
+
 function submitNewForm(){
-    if (newForm.name.value == "" || newForm.amount.value <= 0) {
-        errorDiv.textContent = "Error; invalid input";
+    if (newForm.name.value == "" || newForm.amount.value <= 0 || newForm.date.value == "") {
+        errorDiv.textContent = "Invalid input; Please provide a transaction name, amount, and date.";
         setTimeout(() => { errorDiv.textContent = "" }, 1200);
     }
     else {
+        const idNum = Math.floor(Math.random() * 1000).toString().padStart(2, '0') + newForm.date.value.replaceAll("-", "");
         newTr = {
             "name" : newForm.name.value,
             "amount" : newForm.amount.value,
             "date" : newForm.date.value,
-            "time" : newForm.time.value
+            "time" : newForm.time.value,
+            "idNum" : idNum
         };
         trArray.push(newTr);
         updateTrList(trArray, trListDisplay);
@@ -67,7 +89,7 @@ function addActions(parentItem, trObj) {
     editButton.textContent = "edit";
     editButton.addEventListener("click", (e) => { 
         e.preventDefault
-        beginEdit(trObj);
+        beginEdit(trObj.idNum);
     });
     
     const deleteButton = document.createElement("button");
@@ -76,7 +98,7 @@ function addActions(parentItem, trObj) {
     deleteButton.textContent = "delete";
 
     deleteButton.addEventListener("click", () => { deleteTrItem(trObj); });
-    deleteButton.addEventListener("keydown", (e) => { if (e.key="enter") { deleteTrItem(trObj); }});
+    deleteButton.addEventListener("keydown", (e) => { if (e.key === "Enter") { deleteTrItem(trObj); }});
 
     parentItem.appendChild(editButton);
     parentItem.appendChild(deleteButton);
@@ -91,7 +113,8 @@ function deleteTrItem(trObj) {
     }
 }
 
-function beginEdit(trObj){
+function beginEdit(trIdNum){
+    const trObj = trArray.find((trObj) => trObj.idNum == trIdNum);
     const trIndex = trArray.indexOf(trObj);
     newForm.style.display = "none";
     editForm.style.display = "inherit";
@@ -108,33 +131,29 @@ function beginEdit(trObj){
     editForm.time.placeholder = trObj["time"];
 
     // "cancel" button closes the menu, not saving any changes made
-
-    // TODO: These event listeners need to be removed after either 'cancel' or 'save' is used
-    // once clicked, all of the listeners go off and the values are saved to everything that has ever been edited.
     editCancel.addEventListener("click", (e) => {
         e.preventDefault();
         cancelEdit();
     }, { once: true });
     editCancel.addEventListener("keydown", (e) => {
         e.preventDefault();
-        if (e.key="enter") { cancelEdit(); }
+        if (e.key === "Enter") { cancelEdit(); }
     }, { once: true });
+
+    // "save" button saves any edits made.
     editSave.addEventListener("click", (e) => { 
         e.preventDefault();
         saveEdit(trIndex); 
     }, { once: true });
     editSave.addEventListener("keydown", (e) => { 
         e.preventDefault();
-        if (e.key="enter") { saveEdit(trIndex); }
+        if (e.key === "Enter") { saveEdit(trIndex); }
     }, { once: true });
 }
 
 function cancelEdit(){
     editForm.style.display = "none";
     newForm.style.display = "flex";
-    // remove edit save button event listener, so it can't be used while
-
-    editCancel.removeEventListener("click", () => { cancelEdit(); });
 }
 
 // after a user edits a transaction and clicks "save", this saves the new values to the object and array. 
@@ -143,7 +162,8 @@ function saveEdit(trIndex){
         "name" : editForm.name.value,
         "amount" : editForm.amount.value,
         "date" : editForm.date.value,
-        "time" : editForm.time.value
+        "time" : editForm.time.value,
+        "idNum" : trArray[trIndex].idNum
     }
     updateTrList(trArray);
     editForm.style.display = "none";

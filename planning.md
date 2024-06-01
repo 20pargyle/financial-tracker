@@ -1,18 +1,21 @@
 ok step by step, building the pieces so scope creep is less bad:
     1. new transactions, simple appended to a list on the page
     2. other basic actions (remove/edit transaction list)
-    3. file handling
+    3. file handling (export / import, how is it formatted, etc). I think comma-seperated objects in a json array.
+    4. then clean up the css
 
 
 BUGS:
+    - Transactions IDs are more likely to repeat after so many transactions in one day.
+        - Proposed fix: Restrict the user to so many transactions in one day AND include one hashed character from the "name" field. 
     - can delete item as it's being edited
-
-
+    - Amount formatting - I want it always to two digits if not provided
 
 
 features:
-    Transactions, each with
+    Transactions, each with:
         transaction amount, income/expense, name (company or person), timestamp (include time or not?), categories (v2), misc notes. ID - random x-digit integer. If that is the same between two transactions, then check the day
+        ID: it's not foolproof, but it's good. 3 randomly generated digits and the date.
 
     Expense graphs - definitely importing something
         monthly, yearly, or all time
