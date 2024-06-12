@@ -158,16 +158,23 @@ function cancelEdit(){
 
 // after a user edits a transaction and clicks "save", this saves the new values to the object and array. 
 function saveEdit(trIndex){
-    trArray[trIndex] = {
-        "name" : editForm.name.value,
-        "amount" : editForm.amount.value,
-        "date" : editForm.date.value,
-        "time" : editForm.time.value,
-        "idNum" : trArray[trIndex].idNum
+    if (editForm.name.value == "" || editForm.amount.value <= 0 || editForm.date.value == "") {
+        errorDiv.textContent = "Invalid input; Please provide a transaction name, amount, and date.";
+        setTimeout(() => { errorDiv.textContent = "" }, 1200);
+        // interferes with the "once" option
     }
-    updateTrList(trArray);
-    editForm.style.display = "none";
-    newForm.style.display = "flex";
+    else{
+        trArray[trIndex] = {
+            "name" : editForm.name.value,
+            "amount" : editForm.amount.value,
+            "date" : editForm.date.value,
+            "time" : editForm.time.value,
+            "idNum" : trArray[trIndex].idNum
+        }
+        updateTrList(trArray);
+        editForm.style.display = "none";
+        newForm.style.display = "flex";
+    }
 }
 
 function exportTrList(){

@@ -5,16 +5,22 @@ ok step by step, building the pieces so scope creep is less bad:
     4. then clean up the css
 
 
-BUGS:
+BUGS/TODO in order of importance:
+    - clear "new-form" fields after a transaction is successfully created
+    - add options for income
+    - Amount formatting - I want it amounts formatted to two digits if not provided.
+    - Date and time defaults - the new transaction "date" field matches the current date.
+    - Export transaction list
+    - Import transaction list
+    - If transactions already exist, an option to combine with import (when importing ofc)
     - Transactions IDs are more likely to repeat after so many transactions in one day.
         - Proposed fix: Restrict the user to so many transactions in one day AND include one hashed character from the "name" field. 
-    - can delete item as it's being edited
-    - Amount formatting - I want it always to two digits if not provided
+    - can delete item as it's being edited. proposed fix: if var "editing" is true, buttons grey out.
 
 
 features:
     Transactions, each with:
-        transaction amount, income/expense, name (company or person), timestamp (include time or not?), categories (v2), misc notes. ID - random x-digit integer. If that is the same between two transactions, then check the day
+        transaction amount, income/expense, name (company or person), timestamp (include time or not?), categories (v2), misc notes, ID.
         ID: it's not foolproof, but it's good. 3 randomly generated digits and the date.
 
     Expense graphs - definitely importing something
