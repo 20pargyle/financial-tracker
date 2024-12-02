@@ -1,8 +1,11 @@
+from django.forms import model_to_dict
+from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render
-from django.conf  import settings
+from django.conf import settings
 import json
 import os
 from django.contrib.auth.decorators import login_required
+from .models import Transaction
 
 # Load manifest when server launches
 MANIFEST = {}
@@ -21,3 +24,21 @@ def index(req):
         "css_file": "" if settings.DEBUG else MANIFEST["src/main.ts"]["css"][0]
     }
     return render(req, "core/index.html", context)
+
+@login_required
+def transaction(req: HttpRequest):
+    if req.method == "POST":
+        body = json.loads(req.body)
+        transaction = Transaction(
+            amount=body["amount"],
+            place=body["place"],
+            date=body["datetime"],
+            user=req.user
+        )
+
+        transaction.save()
+        return JsonResponse({"transaction": model_to_dict(transaction)})
+
+    transactions = [model_to_dict(transaction) for transaction in req.user.transaction_set.all()]
+    print(transactions)
+    return JsonResponse({"transactions": transactions})

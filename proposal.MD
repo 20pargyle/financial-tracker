@@ -7,13 +7,14 @@ I have previously attempted such a project, but I ran into many roadblocks that 
 As a user I should be able to:
 - Log in to see my data
 - Manage my transactions and income (add, delete, edit)
+  - Catch duplicates when adding transactions
 - Remembering previous locations 
 - See reports on my finances
 - Set basic budgets
 - Export data to JSON or CSV
-- Use it comfortably on my mobile browser
 ### Nice-to-Have
 As a user, it would be nice to:
+- Use it comfortably on my mobile browser
 - See more advanced reports (spending vs last [time period])
 - Estimate future expenses
 - Starting with grocery lists - what did you buy, and how often do you buy it?
@@ -36,3 +37,8 @@ Useful tools like this are much more useful if also available from a mobile devi
 - The app is useful! Once complete, it will be a functional financial app that I will use for my finances!
 - It will have a consistent and intentional design!
 - It will use the backend for data validation, data interpretation (for reports and charts), and the database to store users and their information.
+
+## technologies
+Tanstack / React Query
+- Handles requests for you, don't need useEffect and all that.
+- Caches data as well
