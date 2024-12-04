@@ -1,11 +1,14 @@
-# Project Proposal - Financial Tracker
+# Financial Tracker
 ## Overview
 This app is a financial tracker - something that is quite useful for any functional adult. While there are certainly many types of apps, websites, and paper trails for this use case, I have yet to find a solution that I feel best fits my needs. With this app, a user will be able to track every kind of expense, while receiving detailed data and reports about how they are spending their money.
 I have previously attempted such a project, but I ran into many roadblocks that I had no idea how to overcome. Luckily, Django provides the tools to overcome many of them - local, constant storage (SQLite databases), displaying that info easily (the template system), and so on. So here I am - making one how I like it!
-## Features
+## Current Features
+- Make an account to interact only with your data
+- Create and view transaction history
+
+## Planned Features
 ### Must-Have
 As a user I should be able to:
-- Log in to see my data
 - Manage my transactions and income (add, delete, edit)
   - Catch duplicates when adding transactions
 - Remembering previous locations 
