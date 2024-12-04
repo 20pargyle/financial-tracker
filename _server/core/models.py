@@ -8,3 +8,4 @@ class Transaction(models.Model):
     place = models.TextField()
     date = models.DateTimeField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    expense = models.BooleanField(default=True)

@@ -29,16 +29,19 @@ def index(req):
 def transaction(req: HttpRequest):
     if req.method == "POST":
         body = json.loads(req.body)
+        expense = True
+        if body["trType"] == "income":
+            expense = False
         transaction = Transaction(
             amount=body["amount"],
             place=body["place"],
-            date=body["datetime"],
-            user=req.user
+            date=body["date"],
+            user=req.user,
+            expense=expense
         )
 
         transaction.save()
         return JsonResponse({"transaction": model_to_dict(transaction)})
 
     transactions = [model_to_dict(transaction) for transaction in req.user.transaction_set.all()]
-    print(transactions)
     return JsonResponse({"transactions": transactions})
