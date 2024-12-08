@@ -1,11 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export function TransactionList(){
-    const [transactions, setTransactions] = useState([]);
-
-    useEffect(() => {
-        getTransactions();
-    }, []);
+export function TransactionList(props){
 
     async function getTransactions(){
         const res = await fetch("/transaction/", {
@@ -15,18 +10,36 @@ export function TransactionList(){
         )
         const body = await res.json();
         body.transactions.reverse();
-        setTransactions([...body.transactions]);
+        props.setTransactions([...body.transactions]);
     }
 
+    // useEffect(() => {
+    //     getTransactions();
+    // });
+
     return (
-        <div id="transaction-list">
-            {transactions.map(tr => (
-                <div key={tr.id}>
-                    <p>$ {tr.expense && "-"}{tr.amount}</p>
-                    <p>{tr.place}</p>
-                    <p>{tr.date}</p>
-                </div>
-            ))}
+        <div className="overflow-x-auto" id="transaction-list">
+            <table className="table table-zebra">
+                {/* head */}
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Amount</th>
+                    <th>Place</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {/* row 1 */}
+                {props.transactions.map(tr => (
+                    <tr key={tr.id}>
+                        <td>$ {tr.expense && "-"}{tr.amount}</td>
+                        <td>{tr.place}</td>
+                        <td>{tr.date.split("T")[0]}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
         </div>
     )
 }

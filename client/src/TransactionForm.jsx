@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-export function TransactionForm(){
+export function TransactionForm(props){
     const [trType, setTrType] = useState("expense");
     const [amount, setAmount] = useState(0);
     const [place, setPlace] = useState("");
@@ -55,33 +55,34 @@ export function TransactionForm(){
 
             // clear error div
             setError("");
+            const data = await res.json();
+            transactions = data.transactions.reverse();
+            props.setTransactions(...transactions);
         }
     }
-
-    function isError(){
-        if(error){
-            return (
-                <div id="error">{error}</div>
-            );
-        } else {
-            return null;
-        }
-    }
-
-    useEffect(() => {
-        isError();
-    }, []);
 
     return (
-        <form onSubmit={createTransaction} className="new-transaction">
+        <form onSubmit={createTransaction} className="new-transaction flex-col">
                 Type of Transaction:
-                <label htmlFor="tr-type-expense">Expense <input type="radio" name="tr-type" value="expense" id="tr-type-expense" defaultChecked onClick={() => setTrType("expense")}/></label>
-                <label htmlFor="tr-type-income">Income <input type="radio" name="tr-type" value="income" id="tr-type-income" onClick={() => setTrType("income")}/></label>
-                <label htmlFor="amount">Amount: <input type="number" name="amount" id="amount" step=".01" onChange={e => setAmount(e.target.value)} /></label>
-                <label htmlFor="place">Place: <input type="text" name="place" id="place" onChange={e => setPlace(e.target.value)} /></label>
-                <label htmlFor="date">Date: <input type="date" name="date" id="date" defaultValue={default_date} onChange={e => setDate(e.target.value)} /></label>
-                <button>Save</button>
-                {isError()}
+                <label className="form-control radio-primary items-center flex" htmlFor="tr-type-expense">
+                    <span className='label-text'>Expense</span>
+                    <input type="radio" name="tr-type" value="expense" id="tr-type-expense" defaultChecked onClick={() => setTrType("expense")}/>
+                </label>
+                <label className="form-control radio-primary items-center" htmlFor="tr-type-income">
+                <span className='label-text'>Income</span>
+                    <input type="radio" name="tr-type" value="income" id="tr-type-income" onClick={() => setTrType("income")}/>
+                </label>
+                <label className="form-control input-bordered items-center gap-2" htmlFor="amount">
+                    Amount: 
+                    <input type="number" name="amount" id="amount" step=".01" onChange={e => setAmount(e.target.value)} />
+                </label>
+                <label className="form-control input-bordered items-center gap-2" htmlFor="place">
+                    Place
+                    <input type="text" className="grow" id="place" name="place" placeholder="Wendy's" onChange={e => setPlace(e.target.value)} />
+                </label>
+                <label className="form-control input-bordered items-center gap-2" htmlFor="date">Date: <input type="date" name="date" id="date" defaultValue={default_date} onChange={e => setDate(e.target.value)} /></label>
+                <button className="btn-accent">Save</button>
+                <span className='items-center'>{error && <div id="error">{error}</div>}</span>
         </form>
     )
 }
