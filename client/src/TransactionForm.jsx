@@ -12,7 +12,6 @@ export function TransactionForm(props){
     var default_date = curr.toISOString().substring(0,10);
     const [date, setDate] = useState(default_date);
 
-
     async function createTransaction(e){
         e.preventDefault();
 
@@ -56,7 +55,7 @@ export function TransactionForm(props){
             // clear error div
             setError("");
             const data = await res.json();
-            transactions = data.transactions.reverse();
+            const transactions = data.transactions.reverse();
             props.setTransactions(...transactions);
         }
     }

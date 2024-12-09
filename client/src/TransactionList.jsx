@@ -19,11 +19,11 @@ export function TransactionList(props){
 
     return (
         <div className="overflow-x-auto" id="transaction-list">
+            {/* TODO: Give margin!!! */}
             <table className="table table-zebra">
                 {/* head */}
                 <thead>
                 <tr>
-                    <th></th>
                     <th>Amount</th>
                     <th>Place</th>
                     <th>Date</th>
