@@ -13,9 +13,9 @@ export function TransactionList(props){
         props.setTransactions([...body.transactions]);
     }
 
-    // useEffect(() => {
-    //     getTransactions();
-    // });
+    useEffect(() => {
+        getTransactions();
+    },[]);
 
     return (
         <div className="overflow-x-auto" id="transaction-list">
