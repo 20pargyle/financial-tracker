@@ -5,8 +5,8 @@ import { Chart } from "./Chart";
 export function Reports(){
 
     return(
-        <>
-            <Chart />
-        </>
+        <div className="flex justify-center">
+            <Chart/>
+        </div>
     )
 }

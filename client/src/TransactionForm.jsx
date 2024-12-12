@@ -61,28 +61,28 @@ export function TransactionForm(props){
     }
 
     return (
-        <form onSubmit={createTransaction} className="new-transaction flex-col">
+        <form onSubmit={createTransaction} className="new-transaction flex flex-col self-center w-3/5 border border-accent m- 18">
                 Type of Transaction:
-                <div className="flex-row">
-                    <label className="input form-control radio-primary items-center flex" htmlFor="tr-type-expense">
+                <div className="flex flex-row w-auto">
+                    <label className="input form-control radio-primary gap-20" htmlFor="tr-type-expense">
                         <span className='label-text'>Expense</span>
                         <input type="radio" name="tr-type" value="expense" id="tr-type-expense" defaultChecked onClick={() => setTrType("expense")}/>
                     </label>
-                    <label className="input form-control radio-primary items-center" htmlFor="tr-type-income">
+                    <label className="input form-control radio-primary w-full gap-20" htmlFor="tr-type-income">
                     <span className='label-text'>Income</span>
                         <input type="radio" name="tr-type" value="income" id="tr-type-income" onClick={() => setTrType("income")}/>
                     </label>
                 </div>
-                <label className="input form-control input-bordered items-center gap-2" htmlFor="amount">
+                <label className="input form-control input-bordered w-full gap-20" htmlFor="amount">
                     Amount: 
                     <input type="number" name="amount" id="amount" step=".01" onChange={e => setAmount(e.target.value)} />
                 </label>
-                <label className="input form-control input-bordered items-center gap-2" htmlFor="place">
+                <label className="input form-control input-bordered w-full gap-20" htmlFor="place">
                     Place
                     <input type="text" className="grow" id="place" name="place" placeholder="Wendy's" onChange={e => setPlace(e.target.value)} />
                 </label>
-                <label className="input form-control input-bordered items-center gap-2" htmlFor="date">Date: <input type="date" name="date" id="date" defaultValue={default_date} onChange={e => setDate(e.target.value)} /></label>
-                <button className="btn btn-accent">Save</button>
+                <label className="input form-control input-bordered w-full gap-20" htmlFor="date">Date: <input type="date" name="date" id="date" defaultValue={default_date} onChange={e => setDate(e.target.value)} /></label>
+                <button className="btn btn-accent w-full">Save</button>
                 <span className='items-center'>{error && <div id="error">{error}</div>}</span>
         </form>
     )

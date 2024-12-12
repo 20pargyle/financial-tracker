@@ -55,7 +55,7 @@ def monthData(req: HttpRequest):
 
     # return a dictionary of monthly transaction totals
     for transaction in req.user.transaction_set.all():
-        month = transaction.date.strftime("%b %y")
+        month = transaction.date.strftime("%b \'%y")
         # expense or income?
         expenseAmt = transaction.amount * -1 if transaction.expense else transaction.amount
         if month not in processedMonths:
@@ -63,6 +63,8 @@ def monthData(req: HttpRequest):
             processedMonths.append(month)
         else:
             monthData[month] += expenseAmt
+
+    # TODO: sort by month
 
     monthDataJson = [{"month": key, "netExpense": monthData[key]} for key in monthData]
     return JsonResponse({"monthData": monthDataJson})

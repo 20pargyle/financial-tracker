@@ -955,18 +955,6 @@ html{
     }
   }
 
-  .btn-outline.btn-primary:hover{
-    --tw-text-opacity: 1;
-    color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)){
-    .btn-outline.btn-primary:hover{
-      background-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
-    }
-  }
-
   .btn-outline.btn-accent:hover{
     --tw-text-opacity: 1;
     color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
@@ -1174,6 +1162,11 @@ html{
   min-width: 4rem;
 }
 
+.tabs{
+  display: grid;
+  align-items: flex-end;
+}
+
 .table{
   position: relative;
   width: 100%;
@@ -1235,21 +1228,12 @@ html{
     border-color: var(--btn-color, var(--fallback-b2));
   }
 
-  .btn-primary{
-    --btn-color: var(--fallback-p);
-  }
-
   .btn-accent{
     --btn-color: var(--fallback-a);
   }
 }
 
 @supports (color: color-mix(in oklab, black, black)){
-  .btn-outline.btn-primary.btn-active{
-    background-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
-    border-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
-  }
-
   .btn-outline.btn-accent.btn-active{
     background-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
     border-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
@@ -1262,17 +1246,7 @@ html{
   outline-offset: 2px;
 }
 
-.btn-primary{
-  --tw-text-opacity: 1;
-  color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
-  outline-color: var(--fallback-p,oklch(var(--p)/1));
-}
-
 @supports (color: oklch(0% 0 0)){
-  .btn-primary{
-    --btn-color: var(--p);
-  }
-
   .btn-accent{
     --btn-color: var(--a);
   }
@@ -1310,16 +1284,6 @@ html{
 .btn-ghost.btn-active{
   border-color: transparent;
   background-color: var(--fallback-bc,oklch(var(--bc)/0.2));
-}
-
-.btn-outline.btn-primary{
-  --tw-text-opacity: 1;
-  color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
-}
-
-.btn-outline.btn-primary.btn-active{
-  --tw-text-opacity: 1;
-  color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
 }
 
 .btn-outline.btn-accent{
@@ -1923,12 +1887,24 @@ html{
   height: 1.25rem;
 }
 
+.w-3\/5{
+  width: 60%;
+}
+
 .w-5{
   width: 1.25rem;
 }
 
 .w-52{
   width: 13rem;
+}
+
+.w-auto{
+  width: auto;
+}
+
+.w-full{
+  width: 100%;
 }
 
 .grow{
@@ -1947,8 +1923,16 @@ html{
   align-items: center;
 }
 
-.gap-2{
-  gap: 0.5rem;
+.justify-center{
+  justify-content: center;
+}
+
+.gap-20{
+  gap: 5rem;
+}
+
+.self-center{
+  align-self: center;
 }
 
 .overflow-x-auto{
@@ -1957,6 +1941,15 @@ html{
 
 .rounded-box{
   border-radius: var(--rounded-box, 1rem);
+}
+
+.border{
+  border-width: 1px;
+}
+
+.border-accent{
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-a,oklch(var(--a)/var(--tw-border-opacity, 1)));
 }
 
 .bg-primary{
@@ -1986,4 +1979,8 @@ html{
 form {
   display: flex;
   flex-direction: column;
+}
+
+.recharts-wrapper {
+  margin: 36px;
 }

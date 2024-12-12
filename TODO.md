@@ -1,14 +1,16 @@
 # Features (goal: done Thursday)
 - style login / registration page
 - chart component
-    - implement rechart package
-    - bar chart with transactions per month
-        - add another Django view that returns a dict with net expenses per month
     - chart styling
+        - bar chart with expenses/income right next to each other
+        - scatterplot with net expenses
+            - FUTURE:
+                - many different options with radio / checkboxes
+                - expense only, income only, net total
+                - per month, per day of one month, per [time period]
 - transaction pages (look at 'destinations')
     - edit (inline buttons?)
     - delete
-
 
 # Thursday / Friday cleanup:
 - consistient styling
