@@ -21,7 +21,6 @@ export function App() {
 
     return (
         <div className='content' data-theme="base">
-            {/* TODO: navbar here */}
             <div className="navbar bg-primary">
                 <div className="dropdown">
                     <div className="navbar-start">
@@ -42,7 +41,7 @@ export function App() {
                         <ul
                             tabIndex="0"
                             className="menu menu-sm dropdown-content bg-primary rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><Link to="/reports">Reports</Link></li>
+                            <li><Link to="/">Reports</Link></li>
                             <li><Link to="/transactions">Transactions</Link></li>
                         </ul>
                     </div>
@@ -54,8 +53,6 @@ export function App() {
                     <button onClick={logout} className="btn btn-primary ">Logout</button>
                 </div>
             </div>
-            {/* TODO: logout function onClick */}
-            <button className='btn btn-primary'>Logout</button>
             <Outlet />
         </div>
     )

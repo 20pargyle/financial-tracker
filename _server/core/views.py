@@ -43,3 +43,26 @@ def transaction(req: HttpRequest):
 
     transactions = [model_to_dict(transaction) for transaction in req.user.transaction_set.all()]
     return JsonResponse({"transactions": transactions})
+
+@login_required
+def monthData(req: HttpRequest):
+    monthData = {}
+    processedMonths = []
+
+    # alternate approach: go through once to get comprehensive list of all months in the dataset
+    # then search the og dict for each value and add the expenses
+    # xres = [ tr['gfg'] for tr in test_list ]
+
+    # return a dictionary of monthly transaction totals
+    for transaction in req.user.transaction_set.all():
+        month = transaction.date.strftime("%b %y")
+        # expense or income?
+        expenseAmt = transaction.amount * -1 if transaction.expense else transaction.amount
+        if month not in processedMonths:
+            monthData[month] = expenseAmt
+            processedMonths.append(month)
+        else:
+            monthData[month] += expenseAmt
+
+    monthDataJson = [{"month": key, "netExpense": monthData[key]} for key in monthData]
+    return JsonResponse({"monthData": monthDataJson})

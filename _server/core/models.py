@@ -6,6 +6,6 @@ class Transaction(models.Model):
     id = models.BigAutoField(primary_key=True)
     amount = models.FloatField()
     place = models.TextField()
-    date = models.DateTimeField()
+    date = models.DateField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     expense = models.BooleanField(default=True)
