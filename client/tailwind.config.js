@@ -11,7 +11,7 @@ export default {
   },
   plugins: [daisyui],
   daisyui: {
-    themes: [ "emerald", "dracula" ],
+    themes: [ "emerald", "dim"],
   }
 };
 

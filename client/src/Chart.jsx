@@ -34,7 +34,7 @@ export function Chart(){
 
     if (enoughData){
         return (
-            <div className="">
+            <div>
                 <LineChart width={600} height={300} data={monthData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                     <Line type="monotone" dataKey="netExpense" stroke="black" />
                     <XAxis 

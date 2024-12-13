@@ -88,7 +88,7 @@ export function TransactionForm(props){
     return (
         <>
         {/* the 'edit' forms as ternary expressions: if "edit" then placeholder and/or value = {default}, else none */}
-            <form onSubmit={createTransaction} className="flex flex-col self-center w-3/5 border-2 border-rounded border-accent p-4 gap-4">
+            <form onSubmit={createTransaction} className="flex flex-col self-center w-3/5 border-2 rounded-box border-accent p-4 gap-4">
                 <h1 className="font-bold text-lg">{searchParams.has("id") ? "Edit" : "New"} Transaction</h1>
                     <div className="flex flex-row items-center gap-6">
                         Type of Transaction:
