@@ -46,7 +46,7 @@ def transactions(req: HttpRequest):
 
 @login_required
 def deleteTransaction(req: HttpRequest, id: int):
-    tr = Transaction.objects.get()
+    tr = Transaction.objects.get(id=id)
     tr.delete()
 
     transactions = [model_to_dict(transaction) for transaction in req.user.transaction_set.all()]
@@ -58,7 +58,7 @@ def singleTransaction(req: HttpRequest, id: int):
         print(id)
         transaction = Transaction.objects.get(id=id)
         print(transaction)
-        # return JsonResponse({"transaction": transaction})
+        return JsonResponse({"transaction": transaction})
     except:
         return
 

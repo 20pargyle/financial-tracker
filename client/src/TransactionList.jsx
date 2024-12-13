@@ -55,7 +55,7 @@ export function TransactionList(props){
                     <tr key={tr.id}>
                         <td>$ {tr.expense && "-"}{tr.amount}</td>
                         <td className="underline">
-                            <Link to={"transactions?id=" + tr.id}>
+                            <Link to={"/transactions?id=" + tr.id}>
                                 {tr.place}
                             </Link>
                         </td>
