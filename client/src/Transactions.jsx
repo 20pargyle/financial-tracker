@@ -9,6 +9,7 @@ export function Transactions(){
         <div className="flex flex-col justify-center m-8">
             <TransactionForm 
                 transactions={transactions}
+                setTransactions={setTransactions}
                 />
             <TransactionList 
                 transactions={transactions}

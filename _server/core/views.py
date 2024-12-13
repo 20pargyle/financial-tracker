@@ -29,7 +29,7 @@ def index(req):
 def transactions(req: HttpRequest):
     if req.method == "POST":
         body = json.loads(req.body)
-        expense = True if body["trType"] == "income" else False
+        expense = True if body["trType"] == "expense" else False
         transaction = Transaction(
             amount=body["amount"],
             place=body["place"],
@@ -54,13 +54,8 @@ def deleteTransaction(req: HttpRequest, id: int):
 
 @login_required
 def singleTransaction(req: HttpRequest, id: int):
-    try:
-        print(id)
-        transaction = Transaction.objects.get(id=id)
-        print(transaction)
-        return JsonResponse({"transaction": transaction})
-    except:
-        return
+    transaction = Transaction.objects.get(id=id)
+    return JsonResponse({"transaction": model_to_dict(transaction)})
 
 @login_required
 def monthData(req: HttpRequest):
@@ -81,8 +76,22 @@ def monthData(req: HttpRequest):
             processedMonths.append(month)
         else:
             monthData[month] += expenseAmt
+    
+    dataMin = 0
+    dataMax = 0
+    # Find max / min values in the month totals
+    # Used to set the domain of Chart(s)
+    for key in monthData:
+        if monthData[key] > dataMax:
+            dataMax = monthData[key]
+        elif monthData[key] < dataMin:
+            dataMin = monthData[key]
+
+    dataMin = round(dataMin + (dataMin / 10))
+    dataMax = round(dataMax + (dataMax / 10))
 
     # TODO: sort by month
 
-    monthDataJson = [{"month": key, "netExpense": monthData[key]} for key in monthData]
-    return JsonResponse({"monthData": monthDataJson})
+
+    monthDataJson = [{"month": key, "netExpense": round(monthData[key], 2)} for key in monthData]
+    return JsonResponse({"monthData": monthDataJson, "dataMin": dataMin, "dataMax": dataMax})

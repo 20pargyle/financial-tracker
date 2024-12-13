@@ -21,17 +21,7 @@ const router = createHashRouter([
             },
             {
                 path: "/transactions",
-                element: <Transactions />,
-                children: [
-                    {
-                        path: "/transactions/",
-                        element: <TransactionList />
-                    },
-                    {
-                        path: "/transactions/new",
-                        element: <TransactionForm/>
-                    }
-                ]
+                element: <Transactions />
             }
         ]
     }

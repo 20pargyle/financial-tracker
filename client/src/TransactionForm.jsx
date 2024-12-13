@@ -7,6 +7,11 @@ export function TransactionForm(props){
     const [amount, setAmount] = useState(0);
     const [place, setPlace] = useState("");
     const [error, setError] = useState("");
+
+    let typeToEdit = 0;
+    let amountToEdit = 0;
+    let placeToEdit = "";
+    let dateToEdit = default_date;
     
     // Get current date as a default
     var curr = new Date(Date.now());
@@ -16,7 +21,6 @@ export function TransactionForm(props){
 
     if(searchParams.has("id")){
         getSingleTransaction(searchParams.get("id"));
-
     }
 
     async function getSingleTransaction(id){
@@ -26,10 +30,15 @@ export function TransactionForm(props){
             }
         );
         const body = await res.json();
-        setTrType(body.expense);
-        setAmount(body.amount);
-        setPlace(body.place);
-        setDate(body.date);
+        setTrType(() => body.expense == 1 ? "expense" : "income" );
+        setAmount(() => body.amount);
+        setPlace(() => body.place);
+        setDate(() => body.date);
+        typeToEdit = body.expense;
+        amountToEdit = body.amount;
+        placeToEdit = body.place;
+        dateToEdit = body.date;
+        // TODO: submitting the edit form doesn't actually POST yet
     }
 
     async function createTransaction(e){
@@ -53,7 +62,7 @@ export function TransactionForm(props){
             });
 
             // Now that it is validated, push the new tr to the database 
-            const res = await fetch("/transaction/", {
+            const res = await fetch("/transactions/", {
                 method: "post",
                 credentials: "same-origin",
                 body: JSON.stringify({
@@ -70,9 +79,9 @@ export function TransactionForm(props){
 
             // clear error div
             setError("");
-            const data = await res.json();
-            const transactions = data.transactions.reverse();
-            props.setTransactions(...transactions);
+            const body = await res.json();
+            const transactions = body.transactions.reverse();
+            props.setTransactions([...transactions]);
         }
     }
 
@@ -85,7 +94,7 @@ export function TransactionForm(props){
                         Type of Transaction:
                         <label className="input form-control radio-primary" htmlFor="tr-type-expense">
                             <span className='label-text'>Expense</span>
-                            <input type="radio" name="tr-type" value="expense" id="tr-type-expense" defaultChecked onClick={() => setTrType("expense")}/>
+                            <input type="radio" required name="tr-type" value="expense" id="tr-type-expense" onClick={() => setTrType("expense")}/>
                         </label>
                         <label className="input form-control radio-primary" htmlFor="tr-type-income">
                         <span className='label-text'>Income</span>
@@ -94,13 +103,14 @@ export function TransactionForm(props){
                     </div>
                     <label className="input form-control input-bordered h-16" htmlFor="amount">
                         Amount: 
-                        <input type="number" name="amount" id="amount" step=".01" onChange={e => setAmount(e.target.value)} />
+                        <input type="number" required name="amount" id="amount" step=".01" placeholder={searchParams.has("id") ? amountToEdit : 0} onChange={e => setAmount(e.target.value)} />
                     </label>
                     <label className="input form-control input-bordered h-16" htmlFor="place">
                         Place
-                        <input type="text" className="grow" id="place" name="place" placeholder="Wendy's" onChange={e => setPlace(e.target.value)} />
+                        <input type="text" required className="grow" id="place" name="place" placeholder={searchParams.has("id") ? placeToEdit : "Wendy's"} onChange={e => setPlace(e.target.value)} />
                     </label>
-                    <label className="input form-control input-bordered h-16" htmlFor="date">Date: <input type="date" name="date" id="date" defaultValue={default_date} onChange={e => setDate(e.target.value)} /></label>
+                    <label className="input form-control input-bordered h-16" htmlFor="date">Date: 
+                        <input type="date" required name="date" id="date" defaultValue={searchParams.has("id") ? dateToEdit : default_date} onChange={e => setDate(e.target.value)} /></label>
                     <button className="btn btn-primary">Save</button>
                     <span className='items-center'>{error && <div id="error">{error}</div>}</span>
             </form>

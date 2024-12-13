@@ -1506,6 +1506,12 @@ html{
   margin-top: 0;
 }
 
+.mockup-phone .display{
+  overflow: hidden;
+  border-radius: 40px;
+  margin-top: -25px;
+}
+
 .mockup-browser .mockup-browser-toolbar .input{
   position: relative;
   margin-left: auto;
@@ -1956,12 +1962,20 @@ html{
   background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity, 1)));
 }
 
+.p-12{
+  padding: 3rem;
+}
+
 .p-2{
   padding: 0.5rem;
 }
 
 .p-4{
   padding: 1rem;
+}
+
+.text-center{
+  text-align: center;
 }
 
 .text-lg{

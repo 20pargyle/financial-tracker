@@ -4,15 +4,10 @@
     - chart styling
         - bar chart with expenses/income right next to each other
         - scatterplot with net expenses
-            - FUTURE:
-                - many different options with radio / checkboxes
-                - expense only, income only, net total
-                - per month, per day of one month, per [time period]
 - transaction pages (look at 'destinations')
-    - edit (inline buttons?)
-    - delete
+    - edit doesn't actually POST as of now
 
-# Thursday / Friday cleanup:
+# Thursday / Friday BASIC cleanup:
 - consistient styling
 - bug hunt and fix
     - data validation
@@ -22,4 +17,11 @@
         - logout
         - ONLY BEING ABLE TO SEE YOUR DATA
             - in the `GET` request
+
+next:
 - export in csv?
+- more charts
+    - FUTURE:
+        - many different options with radio / checkboxes
+        - expense only, income only, net total
+        - per month, per day of one month, per [time period]
