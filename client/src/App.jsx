@@ -20,7 +20,7 @@ export function App() {
       }
 
     return (
-        <div className='content' data-theme="base">
+        <div className='content' data-theme="emerald">
             <div className="navbar bg-primary">
                 <div className="dropdown navbar-start">
                     <div tabIndex="0" role="button" className="btn btn-ghost btn-circle">
@@ -45,7 +45,7 @@ export function App() {
                     </ul>
                 </div>
                 <div className="navbar-center">
-                    <a className="btn btn-ghost text-xl align-center">daisyUI</a>
+                    <a className="btn btn-ghost text-xl align-center">MyWallet</a>
                 </div>
                 <div className="navbar-end">
                     <button onClick={logout} className="btn btn-ghost">Logout</button>

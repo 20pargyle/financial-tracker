@@ -6,7 +6,7 @@ export function Transactions(){
     const [transactions, setTransactions] = useState([]);
 
     return (
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center m-8">
             <TransactionForm 
                 transactions={transactions}
                 />

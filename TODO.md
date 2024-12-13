@@ -22,3 +22,4 @@
         - logout
         - ONLY BEING ABLE TO SEE YOUR DATA
             - in the `GET` request
+- export in csv?

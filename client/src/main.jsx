@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import { App } from './App.jsx'
 import { Reports } from './Reports.jsx'
 import { Transactions } from './Transactions.jsx'
+import { TransactionList } from './TransactionList.jsx'
+import { TransactionForm } from './TransactionForm.jsx'
 import {
     RouterProvider,
     createHashRouter
@@ -20,14 +22,16 @@ const router = createHashRouter([
             {
                 path: "/transactions",
                 element: <Transactions />,
-                // children: [
-                //     {
-                //         path: "/transactions/:id",
-                //         element: <EditTransaction />
-                //         // TODO: see if the "/:id" works
-                //         // Then actually implement the edit form
-                //     }
-                // ]
+                children: [
+                    {
+                        path: "/transactions/",
+                        element: <TransactionList />
+                    },
+                    {
+                        path: "/transactions/new",
+                        element: <TransactionForm/>
+                    }
+                ]
             }
         ]
     }

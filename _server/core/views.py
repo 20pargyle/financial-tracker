@@ -26,7 +26,7 @@ def index(req):
     return render(req, "core/index.html", context)
 
 @login_required
-def transaction(req: HttpRequest):
+def transactions(req: HttpRequest):
     if req.method == "POST":
         body = json.loads(req.body)
         expense = True if body["trType"] == "income" else False
@@ -43,6 +43,24 @@ def transaction(req: HttpRequest):
 
     transactions = [model_to_dict(transaction) for transaction in req.user.transaction_set.all()]
     return JsonResponse({"transactions": transactions})
+
+@login_required
+def deleteTransaction(req: HttpRequest, id: int):
+    tr = Transaction.objects.get()
+    tr.delete()
+
+    transactions = [model_to_dict(transaction) for transaction in req.user.transaction_set.all()]
+    return JsonResponse({"transactions": transactions})
+
+@login_required
+def singleTransaction(req: HttpRequest, id: int):
+    try:
+        print(id)
+        transaction = Transaction.objects.get(id=id)
+        print(transaction)
+        # return JsonResponse({"transaction": transaction})
+    except:
+        return
 
 @login_required
 def monthData(req: HttpRequest):

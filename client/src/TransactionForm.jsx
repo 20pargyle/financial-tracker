@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export function TransactionForm(props){
+    const [searchParams, setSearchParams] = useSearchParams();
     const [trType, setTrType] = useState("expense");
     const [amount, setAmount] = useState(0);
     const [place, setPlace] = useState("");
@@ -11,6 +13,24 @@ export function TransactionForm(props){
     curr.setTime(curr.getTime())
     var default_date = curr.toISOString().substring(0,10);
     const [date, setDate] = useState(default_date);
+
+    if(searchParams.has("id")){
+        getSingleTransaction(searchParams.get("id"));
+
+    }
+
+    async function getSingleTransaction(id){
+        const res = await fetch(`transactions/${id}`, {
+            method: "GET",
+            credentials: "same-origin"
+            }
+        );
+        const body = await res.json();
+        setTrType(body.expense);
+        setAmount(body.amount);
+        setPlace(body.place);
+        setDate(body.date);
+    }
 
     async function createTransaction(e){
         e.preventDefault();
@@ -48,10 +68,6 @@ export function TransactionForm(props){
                 }
             });
 
-            // if (res.status != 200) {
-            //     setError(res.statusText)
-            // }
-
             // clear error div
             setError("");
             const data = await res.json();
@@ -61,29 +77,33 @@ export function TransactionForm(props){
     }
 
     return (
-        <form onSubmit={createTransaction} className="new-transaction flex flex-col self-center w-3/5 border border-accent m- 18">
-                Type of Transaction:
-                <div className="flex flex-row w-auto">
-                    <label className="input form-control radio-primary gap-20" htmlFor="tr-type-expense">
-                        <span className='label-text'>Expense</span>
-                        <input type="radio" name="tr-type" value="expense" id="tr-type-expense" defaultChecked onClick={() => setTrType("expense")}/>
+        <>
+        {/* the 'edit' forms as ternary expressions: if "edit" then placeholder and/or value = {default}, else none */}
+            <form onSubmit={createTransaction} className="flex flex-col self-center w-3/5 border-2 border-rounded border-accent p-4 gap-4">
+                <h1 className="font-bold text-lg">{searchParams.has("id") ? "Edit" : "New"} Transaction</h1>
+                    <div className="flex flex-row items-center gap-6">
+                        Type of Transaction:
+                        <label className="input form-control radio-primary" htmlFor="tr-type-expense">
+                            <span className='label-text'>Expense</span>
+                            <input type="radio" name="tr-type" value="expense" id="tr-type-expense" defaultChecked onClick={() => setTrType("expense")}/>
+                        </label>
+                        <label className="input form-control radio-primary" htmlFor="tr-type-income">
+                        <span className='label-text'>Income</span>
+                            <input type="radio" name="tr-type" value="income" id="tr-type-income" onClick={() => setTrType("income")}/>
+                        </label>
+                    </div>
+                    <label className="input form-control input-bordered h-16" htmlFor="amount">
+                        Amount: 
+                        <input type="number" name="amount" id="amount" step=".01" onChange={e => setAmount(e.target.value)} />
                     </label>
-                    <label className="input form-control radio-primary w-full gap-20" htmlFor="tr-type-income">
-                    <span className='label-text'>Income</span>
-                        <input type="radio" name="tr-type" value="income" id="tr-type-income" onClick={() => setTrType("income")}/>
+                    <label className="input form-control input-bordered h-16" htmlFor="place">
+                        Place
+                        <input type="text" className="grow" id="place" name="place" placeholder="Wendy's" onChange={e => setPlace(e.target.value)} />
                     </label>
-                </div>
-                <label className="input form-control input-bordered w-full gap-20" htmlFor="amount">
-                    Amount: 
-                    <input type="number" name="amount" id="amount" step=".01" onChange={e => setAmount(e.target.value)} />
-                </label>
-                <label className="input form-control input-bordered w-full gap-20" htmlFor="place">
-                    Place
-                    <input type="text" className="grow" id="place" name="place" placeholder="Wendy's" onChange={e => setPlace(e.target.value)} />
-                </label>
-                <label className="input form-control input-bordered w-full gap-20" htmlFor="date">Date: <input type="date" name="date" id="date" defaultValue={default_date} onChange={e => setDate(e.target.value)} /></label>
-                <button className="btn btn-accent w-full">Save</button>
-                <span className='items-center'>{error && <div id="error">{error}</div>}</span>
-        </form>
+                    <label className="input form-control input-bordered h-16" htmlFor="date">Date: <input type="date" name="date" id="date" defaultValue={default_date} onChange={e => setDate(e.target.value)} /></label>
+                    <button className="btn btn-primary">Save</button>
+                    <span className='items-center'>{error && <div id="error">{error}</div>}</span>
+            </form>
+        </>
     )
 }
