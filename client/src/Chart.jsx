@@ -15,10 +15,9 @@ export function Chart(){
         )
         const body = await res.json();
         
-        // TODO: If the month-data dataset only has one value, do not display (and tell the user such)
+        // If the month-data dataset only has one value, do not display
         if (body.monthData.length < 2){
             setEnoughData(() => false);
-            console.log(body.monthData.length);
         }
         else {
             setMonthData([...body.monthData]);
@@ -31,11 +30,11 @@ export function Chart(){
         getMonthData();
     }, [])
 
-
     if (enoughData){
         return (
             <div>
-                <LineChart width={600} height={300} data={monthData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                <LineChart width={600} height={350} data={monthData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                    <CartesianGrid />
                     <Line type="monotone" dataKey="netExpense" stroke="black" />
                     <XAxis 
                     dataKey="month"
@@ -47,6 +46,7 @@ export function Chart(){
                     }}/>
                     <YAxis
                     domain = {([dataMin, dataMax])}
+                    allowDecimals="false"
                     label = {{
                         value: `USD`,
                         style: { textAnchor: 'middle' },
@@ -55,7 +55,6 @@ export function Chart(){
                         offset: 0,
                     }}/>
                     <Tooltip />
-                    <CartesianGrid />
                 </LineChart>
             </div>
         );

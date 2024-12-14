@@ -62,7 +62,7 @@ def monthData(req: HttpRequest):
     monthData = {}
     processedMonths = []
 
-    # alternate approach: go through once to get comprehensive list of all months in the dataset
+    # alternate approach: go through once to get list of all months in the dataset
     # then search the og dict for each value and add the expenses
     # xres = [ tr['gfg'] for tr in test_list ]
 
@@ -87,11 +87,17 @@ def monthData(req: HttpRequest):
         elif monthData[key] < dataMin:
             dataMin = monthData[key]
 
-    dataMin = round(dataMin + (dataMin / 10))
-    dataMax = round(dataMax + (dataMax / 10))
+    dataMin = int(round(dataMin + (dataMin / 10), -1))
+    dataMax = int(round(dataMax + (dataMax / 10), -1))
 
     # TODO: sort by month
 
-    monthData = dict(sorted(monthData.items()))
     monthDataJson = [{"month": key, "netExpense": round(monthData[key], 2)} for key in monthData]
     return JsonResponse({"monthData": monthDataJson, "dataMin": dataMin, "dataMax": dataMax})
+
+
+# These will be used for charts that require income and expenses to be seperated
+# @login_required
+# def monthDataSplit():
+
+#     return JsonResponse({"monthDataIncome": monthDataIncomeJson, "monthDataExpenses": monthDataExpensesJson, "dataMin": dataMin, "dataMax": dataMax})

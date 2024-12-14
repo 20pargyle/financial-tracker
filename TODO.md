@@ -5,12 +5,8 @@
         - scatterplot with net expenses
 
 # Thursday / Friday BASIC cleanup:
-- consistient styling
 - bug hunt and fix
-    - data validation
-    - links
     - accounts
-        - creation
         - logout
         - ONLY BEING ABLE TO SEE YOUR DATA
             - in the `GET` request

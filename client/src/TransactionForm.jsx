@@ -82,7 +82,7 @@ export function TransactionForm(props){
                     Type of Transaction
                     <label className="input form-control radio-primary" htmlFor="tr-type-expense">
                         <span className='label-text'>Expense</span>
-                        <input type="radio" required name="tr-type" value="expense" id="tr-type-expense" onClick={() => setTrType("expense")}/>
+                        <input type="radio" required name="tr-type" value="expense" id="tr-type-expense" defaultChecked onClick={() => setTrType("expense")}/>
                     </label>
                     <label className="input form-control radio-primary" htmlFor="tr-type-income">
                     <span className='label-text'>Income</span>
