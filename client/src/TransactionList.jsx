@@ -41,6 +41,7 @@ export function TransactionList(props){
 
     return (
         <div className="overflow-x-auto">
+            <div className="font-bold text-lg text-center whitespace-pre-wrap">{props.transactions.length == 0 ? "Looks like you need some data!\nGo ahead and input a transaction in the form above... \nyou'll see it pop up in the table below!" : null}</div>
             <table className="table table-zebra">
                 <thead>
                 <tr>
@@ -53,7 +54,7 @@ export function TransactionList(props){
                 {/* rows */}
                 {props.transactions.map(tr => (
                     <tr key={tr.id}>
-                        <td>$ {tr.expense && "-"}{tr.amount}</td>
+                        <td>$ {tr.expense && "-"}{Number(Math.round(parseFloat(tr.amount + 'e' + 2)) + 'e-' + 2).toFixed(2)}</td>
                         <td className="underline">
                             <Link to={"/transactions?id=" + tr.id}>
                                 {tr.place}

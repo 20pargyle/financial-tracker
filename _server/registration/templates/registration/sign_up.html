@@ -1,32 +1,35 @@
 {% extends "registration/base.html"%}
 
 {% block content %}
-<form action="/registration/sign_up/" method="post">
-  {% csrf_token %}
-  <div>
-    <label>
-      First Name
-      <input type="text" name="first_name">
-    </label>
-  </div>
-  <div>
-    <label>
-      Last Name
-      <input type="text" name="last_name">
-    </label>
-  </div>
-  <div>
-    <label>
-      Email
-      <input type="email" name="email">
-    </label>
-  </div>
-  <div>
-    <label>
-      Password
-      <input type="password" name="password">
-    </label>
-  </div>
-  <button>Create Account</button>
-</form>
+<div class="flex flex-col items-center m-8">
+  <h1 class="font-bold text-5xl text-center m-4">Create MyWallet Account</h1>
+  <form action="/registration/sign_up/" method="post" class="flex flex-col w-3/5 border-2 rounded-box border-accent p-4 gap-4">
+    {% csrf_token %}
+    <div>
+      <label class="input form-control input-bordered h-16">
+        First Name
+        <input type="text" name="first_name">
+      </label>
+    </div>
+    <div>
+      <label class="input form-control input-bordered h-16">
+        Last Name
+        <input type="text" name="last_name">
+      </label>
+    </div>
+    <div>
+      <label class="input form-control input-bordered h-16">
+        Email
+        <input type="email" name="email">
+      </label>
+    </div>
+    <div>
+      <label class="input form-control input-bordered h-16">
+        Password
+        <input type="password" name="password">
+      </label>
+    </div>
+    <button class="btn btn-primary m-4">Create Account</button>
+  </form>
+</div>
 {% endblock %}

@@ -1,11 +1,8 @@
 # Features (goal: done Thursday)
-- style login / registration page
 - chart component
     - chart styling
         - bar chart with expenses/income right next to each other
         - scatterplot with net expenses
-- transaction pages (look at 'destinations')
-    - edit doesn't actually POST as of now
 
 # Thursday / Friday BASIC cleanup:
 - consistient styling

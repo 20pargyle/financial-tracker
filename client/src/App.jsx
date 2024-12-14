@@ -40,12 +40,12 @@ export function App() {
                     <ul
                         tabIndex="0"
                         className="menu menu-sm dropdown-content bg-primary rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                        <li><Link to="/">Reports</Link></li>
-                        <li><Link to="/transactions">Transactions</Link></li>
+                        <li><Link to="/Reports">Reports</Link></li>
+                        <li><Link to="/">Transactions</Link></li>
                     </ul>
                 </div>
                 <div className="navbar-center">
-                    <a className="btn btn-ghost text-xl align-center">MyWallet</a>
+                    <div className="btn btn-ghost text-xl align-center"><Link to="/">MyWallet</Link></div>
                 </div>
                 <div className="navbar-end">
                     <div className="dropdown">
@@ -86,9 +86,9 @@ export function App() {
                                     <path 
                                     d="M16 5V4.5V4.5C16 3.67157 15.3284 3 14.5 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H14.5C15.3284 21 16 20.3284 16 19.5V19.5V19" 
                                     stroke="#323232" 
-                                    stroke-width="2" 
-                                    stroke-linecap="round" 
-                                    stroke-linejoin="round"/>
+                                    strokeWidth="2" 
+                                    strokeLinecap="round" 
+                                    strokeLinejoin="round"/>
                                 </svg>
                                 </a>
                             </li>

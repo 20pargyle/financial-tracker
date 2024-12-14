@@ -1,22 +1,24 @@
 {% extends "registration/base.html"%}
 
 {% block content %}
-<form action="/registration/sign_in/" method="post">
-  {% csrf_token %}
-  <div>
-    <label>
-      Email
-      <input type="email" name="email">
-    </label>
-  </div>
-  <div>
-    <label>
-      Password
-      <input type="password" name="password">
-    </label>
-  </div>
-  <button>Sign In</button>
-
-</form>
-<a href="/registration/sign_up/">Create New Account</a>
+<div class="flex flex-col items-center m-8">
+	<h1 class="font-bold text-5xl text-center m-4">Sign in to MyWallet</h1>
+		<form action="/registration/sign_in/" method="post" class="flex flex-col w-3/5 border-2 rounded-box border-accent p-4 gap-4">
+		{% csrf_token %}
+			<div>
+				<label class="input form-control input-bordered h-16">
+				Email
+					<input required type="email" name="email">
+				</label>
+			</div>
+			<div>
+				<label class="input form-control input-bordered h-16">
+				Password
+					<input required type="password" name="password">
+				</label>
+			</div>
+			<button class="btn btn-primary">Sign In</button>
+		</form>
+	<a href="/registration/sign_up/" class="btn btn-accent m-4">Create New Account</a>
+</div>
 {% endblock %}

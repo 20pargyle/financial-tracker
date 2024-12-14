@@ -92,6 +92,6 @@ def monthData(req: HttpRequest):
 
     # TODO: sort by month
 
-
+    monthData = dict(sorted(monthData.items()))
     monthDataJson = [{"month": key, "netExpense": round(monthData[key], 2)} for key in monthData]
     return JsonResponse({"monthData": monthDataJson, "dataMin": dataMin, "dataMax": dataMax})
