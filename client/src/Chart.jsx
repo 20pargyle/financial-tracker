@@ -33,6 +33,7 @@ export function Chart(){
     if (enoughData){
         return (
             <div>
+                <h1 className="font-bold text-2xl text-center m-8">Net Totals Per Month</h1> 
                 <LineChart width={600} height={350} data={monthData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                     <CartesianGrid />
                     <Line type="monotone" dataKey="netExpense" stroke="black" />
@@ -46,6 +47,7 @@ export function Chart(){
                     }}/>
                     <YAxis
                     domain = {([dataMin, dataMax])}
+                    // TODO: include 0 in ticks
                     allowDecimals="false"
                     label = {{
                         value: `USD`,

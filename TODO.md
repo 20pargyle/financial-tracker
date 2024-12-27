@@ -5,11 +5,6 @@
         - scatterplot with net expenses
 
 # Thursday / Friday BASIC cleanup:
-- bug hunt and fix
-    - accounts
-        - logout
-        - ONLY BEING ABLE TO SEE YOUR DATA
-            - in the `GET` request
 
 next:
 - export in csv?

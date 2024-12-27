@@ -94,7 +94,7 @@ export function App() {
                             </li>
                             <li>
                                 <div className="tooltip tooltip-left" data-tip="Dark Mode">
-                                    <input type="checkbox" value="dim" className="toggle theme-controller" />
+                                    <input type="checkbox" value="black" className="toggle theme-controller" />
                                 </div>
                             </li>
                         </ul>
